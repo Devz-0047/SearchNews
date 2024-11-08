@@ -63,7 +63,7 @@ function Posts() {
           className={
             currentPage + 1 === 1
               ? "px-2 py-[1px] bg-orange-300"
-              : "px-2 py-[1px] bg-orange-200"
+              : "px-2 py-[1px] bg-orange-200 hover:bg-orange-400"
           }
           onClick={() => handlePagechange(0)}
         >
@@ -76,7 +76,9 @@ function Posts() {
               <button
                 key={pageNum}
                 className={`px-2 py-[1px] ${
-                  currentPage === pageNum ? "bg-orange-300" : "bg-orange-200"
+                  currentPage === pageNum
+                    ? "bg-orange-300"
+                    : "bg-orange-200 hover:bg-orange-400"
                 }`}
                 onClick={() => handlePagechange(pageNum)}
               >
