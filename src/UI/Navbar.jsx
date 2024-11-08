@@ -1,10 +1,11 @@
 import icon from "../../public/icon.png";
 import { IoSearch } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
+import { RxAvatar } from "react-icons/rx";
 
 function Navbar() {
   return (
-    <div className="min-h-[3.5rem] w-full bg-[#FF742B] flex items-center justify-between px-4">
+    <div className="min-h-[4.5rem] w-full bg-[#FF742B] flex items-center justify-between px-4">
       <div className="flex items-center gap-2">
         <img src={icon} alt="icon" className="h-[3rem]" />
         <div className="flex flex-col items-start justify-start ">
@@ -25,7 +26,10 @@ function Navbar() {
           />
         </div>
       </form>
-      <IoSettingsOutline className="text-2xl text-black" />
+      <div className="flex items-center gap-2">
+        <RxAvatar className="text-2xl" />
+        <IoSettingsOutline className="text-2xl text-black" />
+      </div>
     </div>
   );
 }

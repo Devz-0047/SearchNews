@@ -47,7 +47,7 @@ function Posts() {
           </li>
         ))}
       </ul>
-      <div className="flex items-center justify-center gap-2 mb-4 text-sm">
+      <div className="flex items-center justify-center gap-2 pb-4 text-sm">
         <button
           onClick={() => handlePagechange(currentPage - 1)}
           disabled={currentPage === 0}
