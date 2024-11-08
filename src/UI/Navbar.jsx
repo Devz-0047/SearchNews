@@ -7,9 +7,11 @@ function Navbar() {
     <div className="min-h-[3.5rem] w-full bg-[#FF742B] flex items-center justify-evenly px-4">
       <div className="flex items-center gap-2">
         <img src={icon} alt="icon" className="h-[3rem]" />
-        <div className="flex flex-col items-start justify-center">
-          <p className="text-xl text-gray-900">Search </p>
-          <p className="text-xl text-gray-900">Hacker News </p>
+        <div className="flex flex-col items-start justify-start ">
+          <p className="text-xl leading-tight text-gray-900">Search </p>
+          <p className="-mt-1 text-xl leading-tight text-gray-900">
+            Hacker News{" "}
+          </p>
         </div>
       </div>
 
