@@ -1,13 +1,13 @@
 import { IoShareSocialOutline } from "react-icons/io5";
 function Filter() {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between pt-3">
       <div className="flex items-center">
         <div className="flex items-center gap-2 pl-2">
           <label htmlFor="search" className="text-xs">
             Search
           </label>
-          <select name="search" className="text-sm py-[2px] pl-[2px]">
+          <select name="search" className="text-sm py-[2px] pl-[2px] ">
             <option value="All">All</option>
             <option value="Stories">Stories</option>
             <option value="Ask HN">Ask HN</option>

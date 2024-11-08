@@ -4,7 +4,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 
 function Navbar() {
   return (
-    <div className="min-h-[3.5rem] w-full bg-[#FF742B] flex items-center justify-evenly px-4">
+    <div className="min-h-[3.5rem] w-full bg-[#FF742B] flex items-center justify-between px-4">
       <div className="flex items-center gap-2">
         <img src={icon} alt="icon" className="h-[3rem]" />
         <div className="flex flex-col items-start justify-start ">
