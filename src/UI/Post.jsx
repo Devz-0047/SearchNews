@@ -1,18 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+// import { useQuery } from "@tanstack/react-query";
+// import axios from "axios";
 
 function Post({ title, url, points, author, created_at, comments }) {
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["Post"],
-    queryFn: async () => {
-      const response = await axios.get("http://hn.algolia.com/api/v1/items/1");
+  //   const { data, error, isLoading } = useQuery({
+  //     queryKey: ["Post"],
+  //     queryFn: async () => {
+  //       const response = await axios.get("http://hn.algolia.com/api/v1/items/1");
 
-      return response.data;
-    },
-  });
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-  console.log(data);
+  //       return response.data;
+  //     },
+  //   });
+  //   if (isLoading) return <p>Loading...</p>;
+  //   if (error) return <p>Error: {error.message}</p>;
+  //   console.log(data);
   function getTimeAgo(created_at) {
     const createdDate = new Date(created_at);
     const currentDate = new Date();
@@ -34,18 +34,15 @@ function Post({ title, url, points, author, created_at, comments }) {
   return (
     <div className="pt-3">
       <div className="flex items-center gap-1 pl-3">
-        <p className="text-sm">{`${data.title}`}</p>
-        <a
-          href={data.url}
-          className="text-xs font-thin hover:underline-offset-auto"
-        >
-          {`(${data.url})`}
+        <p className="text-sm">{`${title}`}</p>
+        <a href={url} className="text-xs font-thin hover:underline-offset-auto">
+          {`(${url})`}
         </a>
       </div>
       <div className="pl-2 text-xs font-thin">
-        <p>{`${data.points} points | ${data.author} | ${getTimeAgo(
-          data.created_at
-        )} | ${data.children.length} comments`}</p>
+        <p>{`${points} points | ${author} | ${getTimeAgo(
+          created_at
+        )} | ${comments} comments`}</p>
       </div>
     </div>
   );
