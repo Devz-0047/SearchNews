@@ -1,7 +1,7 @@
-import Navbar from "../UI/Navbar";
-import Filter from "../UI/Filter";
+import Navbar from "../components/Navbar";
+import Filter from "../components/Filter";
 // import Post from "../UI/Post";
-import Posts from "../UI/Posts";
+import Posts from "../components/Posts";
 function Home() {
   return (
     <div className="bg-[#F6F6EF]">

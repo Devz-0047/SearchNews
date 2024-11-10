@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 import Post from "./Post";
 import axios from "axios";
+import Spinner from "../UI/Spinner";
 
 const fetchStories = async (page = 0) => {
   const url = "https://hn.algolia.com/api/v1/search";
@@ -25,7 +26,12 @@ function Posts() {
     keepPreviousData: true,
     staleTime: 5 * 60 * 1000,
   });
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spinner />
+      </div>
+    );
   if (isError) return <p>Error: {error.message}</p>;
   const handlePagechange = (newPage) => {
     setSearchParams({ page: newPage });
