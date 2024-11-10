@@ -2,8 +2,16 @@ import icon from "../../public/icon.png";
 import { IoSearch } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
 import { RxAvatar } from "react-icons/rx";
+import { setQuery } from "../features/filter/filterSlice";
+
+import { useDispatch } from "react-redux";
+import { debounce } from "lodash";
 
 function Navbar() {
+  const dispatch = useDispatch();
+  const handleQueryChange = debounce((value) => {
+    dispatch(setQuery(value));
+  }, 500);
   return (
     <div className="min-h-[4.5rem] w-full bg-[#FF742B] flex items-center justify-between px-4">
       <div className="flex items-center gap-2">
@@ -16,14 +24,21 @@ function Navbar() {
         </div>
       </div>
 
-      <form className="flex-grow max-w-xl mx-4 ">
+      <form
+        className="flex-grow max-w-xl mx-4 "
+        onSubmit={(e) => e.preventDefault()}
+      >
         <div className="flex items-center bg-white rounded-sm">
           <IoSearch className="text-3xl text-[#FF742B] pl-1" />
           <input
             type="text"
             className="flex-grow py-2 pl-2 bg-white outline-none"
             placeholder="Search stories by title, url or author"
+            onChange={(e) => {
+              handleQueryChange(e.target.value);
+            }}
           />
+          <button type="submit"></button>
         </div>
       </form>
       <div className="flex items-center gap-2">

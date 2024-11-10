@@ -2,27 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 import Post from "./Post";
-import axios from "axios";
-import Spinner from "../UI/Spinner";
 
-const fetchStories = async (page = 0) => {
-  const url = "https://hn.algolia.com/api/v1/search";
-  const params = {
-    query: "",
-    tags: "story",
-    page,
-    hitsPerPage: 20,
-  };
-  const response = await axios.get(url, { params });
-  return response.data;
-};
+import Spinner from "../UI/Spinner";
+import { fetchData } from "../hooks/fetchData";
 
 function Posts() {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get("page")) || 0;
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["stories", currentPage],
-    queryFn: () => fetchStories(currentPage),
+    queryFn: () => fetchData(currentPage),
     keepPreviousData: true,
     staleTime: 5 * 60 * 1000,
   });

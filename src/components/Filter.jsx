@@ -1,5 +1,10 @@
 import { IoShareSocialOutline } from "react-icons/io5";
+import { setType, setSort, setDateRange } from "../features/filter/filterSlice";
+import { useDispatch, useSelector } from "react-redux";
 function Filter() {
+  const { resultsCount, searchTime } = useSelector((state) => state.filter);
+
+  const dispatch = useDispatch();
   return (
     <div className="flex items-center justify-between pt-3">
       <div className="flex items-center">
@@ -7,40 +12,54 @@ function Filter() {
           <label htmlFor="search" className="text-xs">
             Search
           </label>
-          <select name="search" className="text-sm py-[2px] pl-[2px] ">
-            <option value="All">All</option>
-            <option value="Stories">Stories</option>
-            <option value="Ask HN">Ask HN</option>
-            <option value="Show HN">Show HN</option>
-            <option value="Launch HN">Launch Hn</option>
-            <option value="Jobs">Jobs</option>
-            <option value="Polls">Polls</option>
+          <select
+            name="type"
+            className="text-sm py-[2px] pl-[2px] "
+            onChange={(e) => dispatch(setType(e.target.value))}
+          >
+            <option value="all">All</option>
+            <option value="story">Stories</option>
+            <option value="ask_hn">Ask HN</option>
+            <option value="show_hn">Show HN</option>
+            <option value="launch_hn">Launch Hn</option>
+            <option value="job">Jobs</option>
+            <option value="polls">Polls</option>
           </select>
         </div>
         <div className="flex items-center gap-2 pl-2">
           <label htmlFor="by" className="text-xs">
             by
           </label>
-          <select name="by" className="text-sm py-[2px] pl-[2px]">
-            <option value="Popularity">Popularity</option>
-            <option value="Date">Date</option>
+          <select
+            name="sort"
+            className="text-sm py-[2px] pl-[2px]"
+            onChange={(e) => dispatch(setSort(e.target.value))}
+          >
+            <option value="byPopularity">Popularity</option>
+            <option value="byDate">Date</option>
           </select>
         </div>
         <div className="flex items-center gap-2 pl-2">
           <label htmlFor="by" className="text-xs">
             for
           </label>
-          <select name="for" className="text-sm py-[2px] pl-[2px]">
-            <option value="All time">All time</option>
-            <option value="Last 24h">Last 24h</option>
-            <option value="Past Week">Past Week</option>
-            <option value="Past Month">Past Month</option>
-            <option value="Past Year">Past Year</option>
+          <select
+            name="dateRange"
+            className="text-sm py-[2px] pl-[2px]"
+            onChange={(e) => dispatch(setDateRange(e.target.value))}
+          >
+            <option value="all">All time</option>
+            <option value="last24h">Last 24h</option>
+            <option value="pastWeek">Past Week</option>
+            <option value="pastMonth">Past Month</option>
+            <option value="pastYear">Past Year</option>
           </select>
         </div>
       </div>
       <div className="flex items-center justify-center gap-4 pr-2 text-xs">
-        <p>X results (X seconds)</p>
+        <p>
+          {resultsCount} results ({searchTime} seconds)
+        </p>
         <IoShareSocialOutline className="text-xl" />
       </div>
     </div>
