@@ -2,7 +2,9 @@ import { IoShareSocialOutline } from "react-icons/io5";
 import { setType, setSort, setDateRange } from "../features/filter/filterSlice";
 import { useDispatch, useSelector } from "react-redux";
 function Filter() {
-  const { resultsCount, searchTime } = useSelector((state) => state.filter);
+  const { type, sort, dateRange, resultsCount, searchTime } = useSelector(
+    (state) => state.filter
+  );
 
   const dispatch = useDispatch();
   return (
@@ -13,9 +15,11 @@ function Filter() {
             Search
           </label>
           <select
+            id="search"
             name="type"
             className="text-sm py-[2px] pl-[2px] "
             onChange={(e) => dispatch(setType(e.target.value))}
+            value={type}
           >
             <option value="all">All</option>
             <option value="story">Stories</option>
@@ -31,7 +35,9 @@ function Filter() {
             by
           </label>
           <select
+            id="by"
             name="sort"
+            value={sort}
             className="text-sm py-[2px] pl-[2px]"
             onChange={(e) => dispatch(setSort(e.target.value))}
           >
@@ -40,10 +46,12 @@ function Filter() {
           </select>
         </div>
         <div className="flex items-center gap-2 pl-2">
-          <label htmlFor="by" className="text-xs">
+          <label htmlFor="for" className="text-xs">
             for
           </label>
           <select
+            id="for"
+            value={dateRange}
             name="dateRange"
             className="text-sm py-[2px] pl-[2px]"
             onChange={(e) => dispatch(setDateRange(e.target.value))}

@@ -1,19 +1,40 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import { FaCircleChevronLeft, FaCircleChevronRight } from "react-icons/fa6";
 import Post from "./Post";
+import { setCurrentPage } from "../features/filter/filterSlice";
 
 import Spinner from "../UI/Spinner";
 import { fetchData } from "../hooks/fetchData";
+import { useDispatch, useSelector } from "react-redux";
 
 function Posts() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = parseInt(searchParams.get("page")) || 0;
+  const dispatch = useDispatch();
+  const { type, sort, dateRange, currentPage, prefix, query } = useSelector(
+    (state) => state.filter
+  );
+  const queryClient = useQueryClient();
+  const pageFromParams = parseInt(searchParams.get("page")) || 0;
+
+  if (pageFromParams !== currentPage) {
+    dispatch(setCurrentPage(pageFromParams));
+  }
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["stories", currentPage],
-    queryFn: () => fetchData(currentPage),
+    queryKey: [dateRange, prefix, query, sort, currentPage, type],
+    queryFn: () => fetchData("", "prefix", "someQuery", "byDate", 1),
     keepPreviousData: true,
     staleTime: 5 * 60 * 1000,
+    onSuccess: () => {
+      queryClient.invalidateQueries([
+        dateRange,
+        prefix,
+        query,
+        sort,
+        currentPage,
+        type,
+      ]);
+    },
   });
   if (isLoading)
     return (
@@ -29,18 +50,24 @@ function Posts() {
   return (
     <div>
       <ul>
-        {data.hits.map((story) => (
-          <li key={story.objectID}>
-            <Post
-              title={story.title}
-              url={story.url}
-              points={story.points}
-              author={story.author}
-              created_at={story.created_at}
-              comments={story.children.length}
-            />
-          </li>
-        ))}
+        {data.hits.length === 0 ? (
+          <div className="flex items-center justify-center h-screen">
+            No Results Found
+          </div>
+        ) : (
+          data.hits.map((story) => (
+            <li key={story.objectID}>
+              <Post
+                title={story.title}
+                url={story.url}
+                points={story.points}
+                author={story.author}
+                created_at={story.created_at}
+                comments={story.children?.length || 0}
+              />
+            </li>
+          ))
+        )}
       </ul>
       <div className="flex items-center justify-center gap-2 pb-4 text-sm">
         <button
@@ -56,7 +83,7 @@ function Posts() {
         </button>
         <button
           className={
-            currentPage + 1 === 1
+            currentPage === 0
               ? "px-2 py-[1px] bg-orange-300"
               : "px-2 py-[1px] bg-orange-200 hover:bg-orange-400"
           }
@@ -91,9 +118,9 @@ function Posts() {
         </button>
         <button
           onClick={() => handlePagechange(currentPage + 1)}
-          disabled={!data.hits.length}
+          disabled={currentPage >= totalPages - 1}
           className={
-            currentPage === data.hits.length
+            currentPage >= totalPages - 1
               ? "bg-gray-400 py-1 px-2"
               : "bg-orange-300 hover:bg-orange-400 py-1 px-2"
           }

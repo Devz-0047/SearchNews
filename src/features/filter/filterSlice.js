@@ -6,7 +6,7 @@ export const filterSlice = createSlice({
     type: "story",
     sort: "byDate",
     dateRange: "all",
-    page: 0,
+    currentPage: 0,
     prefix: false,
     query: "",
     resultsCount: 0,
@@ -26,8 +26,8 @@ export const filterSlice = createSlice({
       state.query = action.payload;
       state.prefix = true;
     },
-    setPage: (state, action) => {
-      state.page = action.payload;
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
     },
     setResultsCount: (state, action) => {
       state.resultsCount = action.payload;
@@ -42,7 +42,7 @@ export const {
   setDateRange,
   setSort,
   setQuery,
-  setPage,
+  setCurrentPage,
   setResultsCount,
   setSearchTime,
 } = filterSlice.actions;
