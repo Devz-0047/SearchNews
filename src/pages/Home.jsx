@@ -4,10 +4,9 @@ import Posts from "../components/Posts";
 import { useIsAuthenticated, useLogin } from "../features/auth/auth";
 import { useEffect, useState } from "react";
 import Spinner from "../UI/Spinner";
-import { useAuth0 } from "@auth0/auth0-react"; // Assuming you're using Auth0
-
+import { useAuth0 } from "@auth0/auth0-react";
 function Home() {
-  const { isLoading } = useAuth0(); // Using the Auth0 hook
+  const { isLoading } = useAuth0();
   const [redirecting, setRedirecting] = useState(false);
   const isAuthenticated = useIsAuthenticated();
   const login = useLogin();
