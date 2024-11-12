@@ -5,10 +5,20 @@ import { RxAvatar } from "react-icons/rx";
 import { setQuery } from "../features/filter/filterSlice";
 
 import { useDispatch } from "react-redux";
+import {
+  useGetUser,
+  useIsAuthenticated,
+  useLogin,
+  useLogout,
+} from "../features/auth/auth";
 import { debounce } from "lodash";
 
 function Navbar() {
   const dispatch = useDispatch();
+  const isAuthencated = useIsAuthenticated();
+  const login = useLogin();
+  const logout = useLogout();
+  const user = useGetUser();
   const handleQueryChange = debounce((value) => {
     dispatch(setQuery(value));
   }, 500);
@@ -42,7 +52,27 @@ function Navbar() {
         </div>
       </form>
       <div className="flex items-center gap-2">
-        <RxAvatar className="text-2xl" />
+        {isAuthencated ? (
+          <button
+            onClick={() => {
+              logout({ logoutParams: { returnTo: window.location.origin } });
+            }}
+          >
+            <img
+              src={user.picture}
+              alt={user.name}
+              className="rounded-full h-7"
+            />
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              login();
+            }}
+          >
+            <RxAvatar className="text-2xl" />
+          </button>
+        )}
         <IoSettingsOutline className="text-2xl text-black" />
       </div>
     </div>

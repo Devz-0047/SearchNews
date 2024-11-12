@@ -4,7 +4,7 @@ export const filterSlice = createSlice({
   name: "filter",
   initialState: {
     type: "story",
-    sort: "byDate",
+    sort: "search",
     dateRange: "all",
     currentPage: 0,
     prefix: false,

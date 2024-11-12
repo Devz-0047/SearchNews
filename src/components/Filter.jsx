@@ -41,8 +41,8 @@ function Filter() {
             className="text-sm py-[2px] pl-[2px]"
             onChange={(e) => dispatch(setSort(e.target.value))}
           >
-            <option value="byPopularity">Popularity</option>
-            <option value="byDate">Date</option>
+            <option value="search">Popularity</option>
+            <option value="search_by_date">Date</option>
           </select>
         </div>
         <div className="flex items-center gap-2 pl-2">
