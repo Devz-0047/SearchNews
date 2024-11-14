@@ -42,7 +42,7 @@ This is a Hacker News Search Clone built with React and React Query, using the A
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/yourusername/hacker-news-clone.git
+   git clone https://github.com/Devz-0047/SearchNews
    cd hacker-news-clone
    ```
 
