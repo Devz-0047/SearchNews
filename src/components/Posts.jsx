@@ -32,8 +32,8 @@ function Posts() {
       const startTime = Date.now();
       return fetchData(query, sort, type, currentPage, 20).then((response) => {
         const timeTaken = (Date.now() - startTime) / 1000;
-        console.log(`Search completed in ${timeTaken} seconds`);
-        dispatch(setSearchTime(timeTaken));
+        // console.log(`Search completed in ${timeTaken} seconds`);
+        dispatch(setSearchTime(timeTaken.toFixed(2)));
         return response;
       });
     },
